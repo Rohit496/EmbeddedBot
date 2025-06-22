@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Roomie Chatbot Host</title>
+    <style>
+      #embedded-chat {
+        border: none;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        height: 60px;
+        width: 80px;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to Roomie Website</h1>
+    <p>The chatbot is in the bottom right corner.</p>
+
+    <!-- Embed the child chat page -->
+    <iframe
+      id="embedded-chat"
+      src="roomie_child.html"
+      title="Roomie Chatbot"
+    ></iframe>
+
+    <script>
+      window.addEventListener("message", function (event) {
+        if (event.data.frameHeight && event.data.frameWidth) {
+          const chatFrame = document.getElementById("embedded-chat");
+          chatFrame.style.height = event.data.frameHeight + "px";
+          chatFrame.style.width = event.data.frameWidth + "px";
+        }
+      });
+    </script>
+  </body>
+</html>
