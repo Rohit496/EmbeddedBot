@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Roomie Chat Page</title>
-  </head>
-  <body>
+    <title>Roomie Embedded Messaging</title>
     <style type="text/css">
       .embeddedServiceHelpButton .helpButton .uiButton {
         background-color: #005290;
@@ -14,50 +12,33 @@
         outline: 1px solid #005290;
       }
     </style>
+  </head>
 
-    <!-- Embedded Messaging Bootstrap Script -->
+  <body>
+    <h1>Roomie Chat Embedded</h1>
+
     <script type="text/javascript">
-      // Resize handling after chat loads
-      function helpButtonLoaded() {
-        var helpButton = document.querySelector(".helpButton");
-        if (!helpButton) {
-          window.setTimeout(helpButtonLoaded, 500);
-          return;
-        }
-        var height = helpButton.clientHeight;
-        var width = helpButton.clientWidth;
-        window.parent.postMessage(
-          {
-            frameHeight: height,
-            frameWidth: width,
-          },
-          "*"
-        );
-      }
-
-      window.onload = helpButtonLoaded;
-
-      // Init function with your Embedded Messaging config
       function initEmbeddedMessaging() {
         try {
-          console.log("Bootstrapping Embedded Messaging...");
-          embeddedservice_bootstrap.settings.language = "en_US";
-          embeddedservice_bootstrap.settings.devMode = true;
+          console.log("Bootstrapping Roomie Embedded Messaging...");
 
+          embeddedservice_bootstrap.settings.language = "en_US"; // Optional: customize language
+
+          // Initialize Embedded Messaging
           embeddedservice_bootstrap.init(
-            "00DgK000005KJZt", // Org Id
-            "Roomie_ESD", // Deployment name
+            "00DgK000005KJZt", // Your Org ID
+            "Roomie_ESD", // Embedded Service Deployment Name
             "https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518", // Site endpoint
             {
-              scrt2URL: "https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com",
+              scrt2URL: "https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com"
             }
           );
         } catch (err) {
-          console.error("Error loading Embedded Messaging: ", err);
+          console.error("Error bootstrapping Roomie chat:", err);
         }
       }
 
-      // Load if not already present
+      // Load Bootstrap script if not already loaded
       if (!window.embeddedservice_bootstrap) {
         var s = document.createElement("script");
         s.setAttribute(
