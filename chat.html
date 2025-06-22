@@ -1,75 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <style type="text/css">
-      .embeddedServiceHelpButton .helpButton .uiButton {
-        background-color: #005290;
-        font-family: "Arial", sans-serif;
-      }
-      .embeddedServiceHelpButton .helpButton .uiButton:focus {
-        outline: 1px solid #005290;
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roomie Bot Chat Integration</title>
   </head>
   <body>
     <h1>Welcome to Roomie Website</h1>
     <p>Click the chat icon in the corner to talk to our bot!</p>
 
-    <!-- Salesforce Embedded Messaging (Your Code) -->
+    <!-- Salesforce Embedded Messaging Script -->
     <script type="text/javascript">
       function initEmbeddedMessaging() {
         try {
-          embeddedservice_bootstrap.settings.language = "en_US"; // Set language
+          embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
           embeddedservice_bootstrap.init(
-            "00DgK000005KJZt", // Org Id
-            "Roomie_ESD", // Deployment Name
-            "https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518", // Snippet URL
+            '00DgK000005KJZt', // Salesforce Org Id
+            'Roomie_ESD', // Embedded Service Deployment Name
+            'https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518', // Snippet URL
             {
-              scrt2URL:
-                "https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com",
+              scrt2URL: 'https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com'
             }
           );
         } catch (err) {
-          console.error("Error loading Embedded Messaging: ", err);
+          console.error('Error loading Embedded Messaging: ', err);
         }
-      }
+      };
     </script>
-    <script
-      type="text/javascript"
-      src="https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518/assets/js/bootstrap.min.js"
-      onload="initEmbeddedMessaging()"
-    ></script>
-
-    <!-- Dummy Live Chat with Prechat Fields & Event Listener (Reference) -->
-    <script type="text/javascript">
-      document.addEventListener(
-        "setCustomField",
-        function (event) {
-          console.log("Inside the Custom Field Listener");
-          console.log("Passed Text value is", event.detail.text);
-          console.log("Passed Skill value is", event.detail.skill);
-          // Example: You can adapt this logic to Embedded Messaging if needed
-          event.detail.callback();
-        },
-        false
-      );
-    </script>
-
-    <!-- Keyboard Shortcut to Trigger Chat (Optional Custom Logic) -->
-    <script>
-      document.addEventListener(
-        "keyup",
-        (event) => {
-          console.log("Key is", event.key);
-          if (event.key == "s") {
-            console.log("S key was pressed");
-            // Optional: You can define custom behavior here
-            alert("Start Chat Triggered (Replace this with actual API call)");
-          }
-        },
-        false
-      );
+    <script 
+      type="text/javascript" 
+      src="https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518/assets/js/bootstrap.min.js" 
+      onload="initEmbeddedMessaging()">
     </script>
   </body>
 </html>
