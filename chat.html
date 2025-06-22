@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Roomie Bot Chat</title>
+    <title>Roomie Chat on My Website</title>
     <style>
-      .embeddedServiceHelpButton .helpButton .uiButton {
-        background-color: #005290;
-        font-family: "Arial", sans-serif;
-      }
-
-      .embeddedServiceHelpButton .helpButton .uiButton:focus {
-        outline: 1px solid #005290;
+      #chat-frame {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        border: none;
+        width: 80px;
+        height: 60px;
+        z-index: 9999;
       }
     </style>
   </head>
-
   <body>
-    <script type="text/javascript">
-      function initEmbeddedMessaging() {
-        try {
-          embeddedservice_bootstrap.settings.language = 'en_US';
+    <h1>Welcome to My Website</h1>
+    <p>Roomie bot is available in the bottom-right corner.</p>
 
-          embeddedservice_bootstrap.init(
-            '00DgK000005KJZt',
-            'Roomie_ESD',
-            'https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518',
-            {
-              scrt2URL: 'https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com'
-            }
-          );
-        } catch (err) {
-          console.error('Error loading Embedded Messaging: ', err);
+    <!-- Embed your Salesforce VF chat page -->
+    <iframe
+      id="chat-frame"
+      src="https://orgfarm-8649d57452-dev-ed--c.develop.vf.force.com/apex/Demo"
+      title="Roomie Chat"
+    ></iframe>
+
+    <!-- Resize iframe when receiving message from VF -->
+    <script>
+      window.addEventListener("message", function (event) {
+        if (event.data.frameHeight && event.data.frameWidth) {
+          const frame = document.getElementById("chat-frame");
+          frame.style.height = event.data.frameHeight + "px";
+          frame.style.width = event.data.frameWidth + "px";
         }
-      }
-    </script>
-
-    <script 
-      type="text/javascript" 
-      src="https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518/assets/js/bootstrap.min.js" 
-      onload="initEmbeddedMessaging()">
+      });
     </script>
   </body>
 </html>
