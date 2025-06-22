@@ -15,52 +15,25 @@
   </head>
   <body>
     <script type="text/javascript">
-      function sendFrameSize(selector) {
-        const el = document.querySelector(selector);
-        if (el) {
-          window.parent.postMessage(
-            {
-              frameHeight: el.clientHeight,
-              frameWidth: el.clientWidth,
-            },
-            "*"
-          );
-        }
-      }
-
       function initEmbeddedMessaging() {
         try {
           console.log("Initializing Embedded Messaging...");
           embeddedservice_bootstrap.settings.language = "en_US";
-          embeddedservice_bootstrap.settings.devMode = true;
 
           embeddedservice_bootstrap.init(
             "00DgK000005KJZt", // Org ID
             "Roomie_ESD", // Deployment Name
             "https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518",
             {
-              scrt2URL:
-                "https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com",
+              scrt2URL: "https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com"
             }
           );
-
-          embeddedservice_bootstrap.addEventHandler("afterMinimize", function () {
-            sendFrameSize(".embeddedServiceSidebarMinimizedDefaultUI");
-          });
-
-          embeddedservice_bootstrap.addEventHandler("afterMaximize", function () {
-            sendFrameSize(".dockableContainer");
-          });
-
-          embeddedservice_bootstrap.addEventHandler("afterDestroy", function () {
-            sendFrameSize(".helpButton");
-          });
         } catch (e) {
           console.error("Error bootstrapping Roomie chat:", e);
         }
       }
 
-      // Dynamically load bootstrap.min.js
+      // Dynamically load bootstrap script
       if (!window.embeddedservice_bootstrap) {
         var s = document.createElement("script");
         s.setAttribute(
