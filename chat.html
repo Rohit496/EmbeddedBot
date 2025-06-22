@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Roomie Chat</title>
-    <style type="text/css">
+    <title>Roomie Bot Chat</title>
+    <style>
       .embeddedServiceHelpButton .helpButton .uiButton {
         background-color: #005290;
         font-family: "Arial", sans-serif;
       }
+
       .embeddedServiceHelpButton .helpButton .uiButton:focus {
         outline: 1px solid #005290;
       }
@@ -14,41 +15,29 @@
   </head>
 
   <body>
-    <h2>Welcome to Roomie Chat</h2>
-
     <script type="text/javascript">
-      var initESW = function () {
+      function initEmbeddedMessaging() {
         try {
-          embeddedservice_bootstrap.settings.language = "en_US"; // Customize language if needed
+          embeddedservice_bootstrap.settings.language = 'en_US';
 
-          // Init with your Roomie Embedded Messaging config
           embeddedservice_bootstrap.init(
-            "00DgK000005KJZt", // Org ID
-            "Roomie_ESD", // Embedded Service Deployment Name
-            "https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518", // Snippet URL
+            '00DgK000005KJZt',
+            'Roomie_ESD',
+            'https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518',
             {
-              scrt2URL: "https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com"
+              scrt2URL: 'https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com'
             }
           );
         } catch (err) {
-          console.error("Error loading Embedded Messaging: ", err);
+          console.error('Error loading Embedded Messaging: ', err);
         }
-      };
-
-      // Load bootstrap script if not already present
-      if (!window.embeddedservice_bootstrap) {
-        var s = document.createElement("script");
-        s.setAttribute(
-          "src",
-          "https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518/assets/js/bootstrap.min.js"
-        );
-        s.onload = function () {
-          initESW();
-        };
-        document.body.appendChild(s);
-      } else {
-        initESW();
       }
+    </script>
+
+    <script 
+      type="text/javascript" 
+      src="https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518/assets/js/bootstrap.min.js" 
+      onload="initEmbeddedMessaging()">
     </script>
   </body>
 </html>
