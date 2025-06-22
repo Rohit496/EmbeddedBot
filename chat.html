@@ -1,42 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Roomie Chat Bot</title>
+    <title>Roomie Chat Page</title>
+  </head>
+  <body>
     <style type="text/css">
       .embeddedServiceHelpButton .helpButton .uiButton {
         background-color: #005290;
         font-family: "Arial", sans-serif;
       }
+
       .embeddedServiceHelpButton .helpButton .uiButton:focus {
         outline: 1px solid #005290;
       }
     </style>
-  </head>
 
-  <body>
-    <h1>Welcome to Roomie</h1>
-    <p>The chatbot should appear shortly in the corner.</p>
-
+    <!-- Embedded Messaging Bootstrap Script -->
     <script type="text/javascript">
-      var initEmbeddedMessaging = function () {
+      // Resize handling after chat loads
+      function helpButtonLoaded() {
+        var helpButton = document.querySelector(".helpButton");
+        if (!helpButton) {
+          window.setTimeout(helpButtonLoaded, 500);
+          return;
+        }
+        var height = helpButton.clientHeight;
+        var width = helpButton.clientWidth;
+        window.parent.postMessage(
+          {
+            frameHeight: height,
+            frameWidth: width,
+          },
+          "*"
+        );
+      }
+
+      window.onload = helpButtonLoaded;
+
+      // Init function with your Embedded Messaging config
+      function initEmbeddedMessaging() {
         try {
-          console.log("Initializing Embedded Messaging...");
+          console.log("Bootstrapping Embedded Messaging...");
           embeddedservice_bootstrap.settings.language = "en_US";
+          embeddedservice_bootstrap.settings.devMode = true;
 
           embeddedservice_bootstrap.init(
-            "00DgK000005KJZt", // Org ID
-            "Roomie_ESD", // Deployment Name
-            "https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518", // Snippet URL
+            "00DgK000005KJZt", // Org Id
+            "Roomie_ESD", // Deployment name
+            "https://orgfarm-8649d57452-dev-ed.develop.my.site.com/ESWRoomieESD1750172120518", // Site endpoint
             {
-              scrt2URL: "https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com"
+              scrt2URL: "https://orgfarm-8649d57452-dev-ed.develop.my.salesforce-scrt.com",
             }
           );
         } catch (err) {
           console.error("Error loading Embedded Messaging: ", err);
         }
-      };
+      }
 
-      // Load the bootstrap script if not already loaded
+      // Load if not already present
       if (!window.embeddedservice_bootstrap) {
         var s = document.createElement("script");
         s.setAttribute(
